@@ -9,8 +9,8 @@ const port: number = 3000;
 const steam_call = new SteamCall()
 app.use(bodyParser.json());
 
-//steam_call.get_top_100_games_fr()
-//steam_call.get_top_100_games_en()
+steam_call.get_top_100_games_fr()
+steam_call.get_top_100_games_en()
 
 /***********************************************/
 // GAMES
@@ -21,9 +21,9 @@ import {add_game_in_wishlist} from "./src/services/games/add_a_game_in_wishlist"
 app.get('/games/top', (req: Request, res: Response) => {
     let lang = req.query.lang
     if(lang === 'fr')
-        res.send(steam_call.read_cache_local_fr());
+        res.send({steam_call.read_cache_local_fr()});
     else
-        res.send(steam_call.read_cache_local_en());
+        res.send({steam_call.read_cache_local_en()});
 });
 
 app.post('/games/search', (req: Request, res: Response) => {
