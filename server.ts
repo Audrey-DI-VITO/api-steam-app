@@ -21,9 +21,9 @@ import {add_game_in_wishlist} from "./src/services/games/add_a_game_in_wishlist"
 app.get('/games/top', (req: Request, res: Response) => {
     let lang = req.query.lang
     if(lang === 'fr')
-        res.send({steam_call.read_cache_local_fr()});
+        res.send(steam_call.read_cache_local_fr()[0]);
     else
-        res.send({steam_call.read_cache_local_en()});
+        res.send(steam_call.read_cache_local_en()[0]);
 });
 
 app.post('/games/search', (req: Request, res: Response) => {
