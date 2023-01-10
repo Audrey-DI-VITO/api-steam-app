@@ -32,15 +32,17 @@ const axios = require('axios');
                              datas = data.data[appid]
                          }
 
-                         this.list_top_100_games.push(new Games({
-                             game_id: appid,
-                             game_name: datas.name,
-                             game_description: datas.short_description,
-                             game_picture: datas.header_image,
-                             game_background: datas.background,
-                             game_price: "",
-                             game_promotion: null
-                         }))
+                         if(data.data[appid].success === true) {
+                             this.list_top_100_games.push(new Games({
+                                 game_id: appid,
+                                 game_name: datas.name,
+                                 game_description: datas.short_description,
+                                 game_picture: datas.header_image,
+                                 game_background: datas.background,
+                                 game_price: "",
+                                 game_promotion: null
+                             }))
+                         }
                      }).catch((err: Error) => {
                          console.log(ColorsFont.red, 'Error app id => '+appid+' '+err)
                      })
@@ -69,15 +71,17 @@ const axios = require('axios');
                              datas = data.data[appid]
                          }
 
-                         this.list_top_100_games.push(new Games({
-                             game_id: appid,
-                             game_name: datas.name,
-                             game_description: datas.short_description,
-                             game_picture: datas.header_image,
-                             game_background: datas.background,
-                             game_price: "",
-                             game_promotion: null
-                         }))
+                         if(data.data[appid].success === true) {
+                             this.list_top_100_games.push(new Games({
+                                 game_id: appid,
+                                 game_name: datas.name,
+                                 game_description: datas.short_description,
+                                 game_picture: datas.header_image,
+                                 game_background: datas.background,
+                                 game_price: "",
+                                 game_promotion: null
+                             }))
+                         }
                      }).catch((err: Error) => {
                          console.log(ColorsFont.red, 'Error app id => '+appid+' '+err)
                      })
