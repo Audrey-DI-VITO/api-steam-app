@@ -6,4 +6,5 @@ export interface IGames {
     game_background: string
     game_price: string
     game_promotion: number
+    publishers: string[]
 }

@@ -63,8 +63,9 @@ export class UsersController extends NosqlDb {
                         game_description: details.data[wishlist[i].game_id].short_description,
                         game_picture: details.data[wishlist[i].game_id].data.header_image,
                         game_background: details.data[wishlist[i].game_id].data.background,
-                        game_price: details.data[wishlist[i].game_id].data.price_overview ? details.data[wishlist[i].game_id].data.price_overview.final_formatted : "Gratuit",
-                        game_promotion: details.data[wishlist[i].game_id].data.price_overview ? details.data[wishlist[i].game_id].data.price_overview.discount_percent : 0
+                        game_price: details.data[wishlist[i].game_id].data.price_overview ? details.data[wishlist[i].game_id].data.price_overview.final_formatted ?? "Gratuit" : "Gratuit",
+                        game_promotion: details.data[wishlist[i].game_id].data.price_overview ? details.data[wishlist[i].game_id].data.price_overview.discount_percent : 0,
+                        publishers: details.data[wishlist[i].game_id].data.publishers
                     })
                     all_games_of_user.push(game)
                 })
@@ -92,7 +93,8 @@ export class UsersController extends NosqlDb {
                         game_picture: details.data[favorite[i].game_id].data.header_image,
                         game_background: details.data[favorite[i].game_id].data.background,
                         game_price: details.data[favorite[i].game_id].data.price_overview ? details.data[favorite[i].game_id].data.price_overview.final_formatted : "Gratuit",
-                        game_promotion: details.data[favorite[i].game_id].data.price_overview ? details.data[favorite[i].game_id].data.price_overview.discount_percent : 0
+                        game_promotion: details.data[favorite[i].game_id].data.price_overview ? details.data[favorite[i].game_id].data.price_overview.discount_percent : 0,
+                        publishers: details.data[favorite[i].game_id].data.publishers
                     })
                     all_games_of_user.push(game)
                 })

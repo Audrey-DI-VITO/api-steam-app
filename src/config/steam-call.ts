@@ -39,8 +39,9 @@ const axios = require('axios');
                                  game_description: datas.short_description,
                                  game_picture: datas.header_image,
                                  game_background: datas.background,
-                                 game_price: "",
-                                 game_promotion: null
+                                 game_price: datas.price_overview.final_formatted,
+                                 game_promotion: datas.price_overview.discount_percent,
+                                 publishers: datas.developers
                              }))
                          }
                      }).catch((err: Error) => {
@@ -78,8 +79,9 @@ const axios = require('axios');
                                  game_description: datas.short_description,
                                  game_picture: datas.header_image,
                                  game_background: datas.background,
-                                 game_price: "",
-                                 game_promotion: null
+                                 game_price: datas.price_overview.final_formatted,
+                                 game_promotion: datas.price_overview.discount_percent,
+                                 publishers: datas.developers
                              }))
                          }
                      }).catch((err: Error) => {

@@ -8,6 +8,7 @@ export class Games implements IGames {
     game_background: string
     game_price: string
     game_promotion: number | null
+    publishers: string[]
 
     constructor (props?: IGames) {
         this.game_id = props?.game_id
@@ -17,5 +18,6 @@ export class Games implements IGames {
         this.game_background = props?.game_background
         this.game_price = props?.game_price
         this.game_promotion = props?.game_promotion
+        this.publishers = props?.publishers
     }
 }

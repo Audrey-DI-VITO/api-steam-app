@@ -22,7 +22,8 @@ export class GamesController extends NosqlDb {
                         game_picture: details.data[data.data[0].appid].data.header_image,
                         game_background: details.data[data.data[0].appid].data.background,
                         game_price: details.data[data.data[0].appid].data.price_overview.final_formatted ?? "Gratuit",
-                        game_promotion: details.data[data.data[0].appid].data.price_overview.discount_percent ?? 0
+                        game_promotion: details.data[data.data[0].appid].data.price_overview.discount_percent ?? 0,
+                        publishers: details.data[data.data[0].appid].data.publishers
                     })
                     res.status(200).send(game)
                 })
