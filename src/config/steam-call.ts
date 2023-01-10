@@ -41,7 +41,7 @@ const axios = require('axios');
                                  game_background: datas.background,
                                  game_price: datas.price_overview.final_formatted,
                                  game_promotion: datas.price_overview.discount_percent,
-                                 publishers: datas.developers
+                                 publishers: datas.developers[0]
                              }))
                          }
                      }).catch((err: Error) => {
@@ -81,7 +81,7 @@ const axios = require('axios');
                                  game_background: datas.background,
                                  game_price: datas.price_overview.final_formatted,
                                  game_promotion: datas.price_overview.discount_percent,
-                                 publishers: datas.developers
+                                 publishers: datas.developers[0]
                              }))
                          }
                      }).catch((err: Error) => {
