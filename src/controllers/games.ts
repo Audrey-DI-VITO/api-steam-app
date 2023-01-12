@@ -10,23 +10,26 @@ export class GamesController extends NosqlDb {
     games: Games = new Games()
 
     search_games = async (req: Request, res: Response) => {
-        let game_name = req.body.game_name.toUpperCase()
+        let all_games: Games[] = []
+        let game_name = req.body.game_name
 
         await axios.get("https://steamcommunity.com/actions/SearchApps/"+game_name)
             .then(async (data: AxiosResponse) => {
-                await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+data.data[0].appid).then((details: AxiosResponse) => {
-                    let game = new Games({
-                        game_id: data.data[0].appid,
-                        game_name: details.data[data.data[0].appid].data.name,
-                        game_description: details.data[data.data[0].appid].short_description,
-                        game_picture: details.data[data.data[0].appid].data.header_image,
-                        game_background: details.data[data.data[0].appid].data.background,
-                        game_price: details.data[data.data[0].appid].data.price_overview.final_formatted ?? "Gratuit",
-                        game_promotion: details.data[data.data[0].appid].data.price_overview.discount_percent ?? 0,
-                        publishers: details.data[data.data[0].appid].data.publishers
+                for(let i = 0; i < data.data.length; i++) {
+                    await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+data.data[i].appid).then((details: AxiosResponse) => {
+                        all_games.push(new Games({
+                            game_id: data.data[i].appid,
+                            game_name: details.data[data.data[i].appid].data.name,
+                            game_description: details.data[data.data[i].appid].short_description,
+                            game_picture: details.data[data.data[i].appid].data.header_image,
+                            game_background: details.data[data.data[i].appid].data.background,
+                            game_price: details.data[data.data[i].appid].data.price_overview.final_formatted ?? "Gratuit",
+                            game_promotion: details.data[data.data[i].appid].data.price_overview.discount_percent ?? 0,
+                            publishers: details.data[data.data[i].appid].data.publishers
+                        }))
                     })
-                    res.status(200).send(game)
-                })
+                }
+                res.status(200).send({"games": all_games})
             })
     }
 
