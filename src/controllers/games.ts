@@ -11,7 +11,10 @@ export class GamesController extends NosqlDb {
 
     search_games = async (req: Request, res: Response) => {
         let all_games: Games[] = []
-        let game_name = req.body.game_name
+        let game_name = req.body.game_name.split(" ")
+        for(let i = 0; i < game_name.length; i++) {
+            game_name[i] = game_name[i][0].toUpperCase() + game_name[i].slice(1, game_name[i].length)
+        }
 
         await axios.get("https://steamcommunity.com/actions/SearchApps/"+game_name)
             .then(async (data: AxiosResponse) => {
@@ -23,8 +26,8 @@ export class GamesController extends NosqlDb {
                             game_description: details.data[data.data[i].appid].short_description,
                             game_picture: details.data[data.data[i].appid].data.header_image,
                             game_background: details.data[data.data[i].appid].data.background,
-                            game_price: details.data[data.data[i].appid].data.price_overview.final_formatted ?? "Gratuit",
-                            game_promotion: details.data[data.data[i].appid].data.price_overview.discount_percent ?? 0,
+                            game_price: details.data[data.data[i].appid].data.price_overview?.final_formatted ?? "Gratuit",
+                            game_promotion: details.data[data.data[i].appid].data.price_overview?.discount_percent ?? 0,
                             publishers: details.data[data.data[i].appid].data.publishers
                         }))
                     })
