@@ -28,7 +28,7 @@ export class GamesController extends NosqlDb {
                             game_background: details.data[data.data[i].appid].data.background,
                             game_price: details.data[data.data[i].appid].data.price_overview?.final_formatted ?? "Gratuit",
                             game_promotion: details.data[data.data[i].appid].data.price_overview?.discount_percent ?? 0,
-                            publishers: details.data[data.data[i].appid].data.publishers
+                            publishers: details.data[data.data[i].appid].data.publishers[0]
                         }))
                     })
                 }
