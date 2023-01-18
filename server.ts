@@ -58,11 +58,11 @@ app.post('/users/reset_password',  (req: Request, res: Response) => {
     reset_password(req, res)
 })
 
-app.post('/users/games_wishlist', (req: Request, res: Response) => {
+app.get('/users/games_wishlist', (req: Request, res: Response) => {
     get_games_in_wishlist(req, res)
 })
 
-app.post('/users/games_favorite', (req: Request, res: Response) => {
+app.get('/users/games_favorite', (req: Request, res: Response) => {
     get_games_in_favorite(req, res)
 })
 
