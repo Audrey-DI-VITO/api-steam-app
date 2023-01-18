@@ -27,7 +27,7 @@ export class UsersController extends NosqlDb {
 
         if(found_user) {
             if(found_user.password === req.body.pwd) {
-                res.status(200).send("Connection allowed"+{"user": found_user})
+                res.status(200).send({"user": found_user})
             } else {
                 res.status(403).send("Forbidden")
             }
