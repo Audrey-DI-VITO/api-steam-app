@@ -72,7 +72,7 @@ export class UsersController extends NosqlDb {
             }
         }
 
-        res.status(200).send(all_games_of_user)
+        res.status(200).send({"games": all_games_of_user})
     }
 
     get_games_in_favorite = async (req: Request, res: Response) => {
@@ -96,7 +96,7 @@ export class UsersController extends NosqlDb {
                         game_promotion: details.data[favorite[i].game_id].data.price_overview ? details.data[favorite[i].game_id].data.price_overview.discount_percent : 0,
                         publishers: details.data[favorite[i].game_id].data.publishers
                     })
-                    all_games_of_user.push(game)
+                    all_games_of_user.push({"games": game})
                 })
             }
         }
