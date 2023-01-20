@@ -55,7 +55,7 @@ export class UsersController extends NosqlDb {
 
         for(let i = 0; i < wishlist.length; i++) {
             let current_user = new Users(wishlist[i].fk_user_id)
-            if(current_user.id === Number(req.params.user_id)) {
+            if(current_user.id === Number(req.query.user_id)) {
                 await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+wishlist[i].game_id).then((details: AxiosResponse) => {
                     let game = new Games({
                         game_id: wishlist[i].game_id,
