@@ -25,7 +25,7 @@ const axios = require('axios');
              await axios.get("https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/").then((data: AxiosResponse) => {
                  data.data.response.ranks.forEach(async (rank: any) => {
                      let appid = rank.appid
-                     await axios.get('https://store.steampowered.com/api/appdetails?l=french&appids=' + appid).then((data: AxiosResponse) => {
+                     await axios.get('https://store.steampowered.com/api/appdetails?appids=' + appid).then((data: AxiosResponse) => {
                          let datas = data.data[appid].data
 
                          if(datas === undefined) {
@@ -39,9 +39,9 @@ const axios = require('axios');
                                  game_description: datas.short_description,
                                  game_picture: datas.header_image,
                                  game_background: datas.background,
-                                 game_price: datas.price_overview.final_formatted,
-                                 game_promotion: datas.price_overview.discount_percent,
-                                 publishers: datas.developers[0]
+                                 game_price: datas.price_overview ? datas.price_overview.final_formatted : "Gratuit",
+                                 game_promotion: datas.price_overview ? datas.price_overview.discount_percent : 0,
+                                 publishers: datas.developers ? datas.developers[0] : "Aucun"
                              }))
                          }
                      }).catch((err: Error) => {
@@ -65,7 +65,7 @@ const axios = require('axios');
              await axios.get("https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/").then((data: AxiosResponse) => {
                  data.data.response.ranks.forEach(async (rank: any) => {
                      let appid = rank.appid
-                     await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids=' + appid).then((data: AxiosResponse) => {
+                     await axios.get('https://store.steampowered.com/api/appdetails?appids=' + appid).then((data: AxiosResponse) => {
                          let datas = data.data[appid].data
 
                          if(datas === undefined) {
@@ -79,9 +79,9 @@ const axios = require('axios');
                                  game_description: datas.short_description,
                                  game_picture: datas.header_image,
                                  game_background: datas.background,
-                                 game_price: datas.price_overview.final_formatted,
-                                 game_promotion: datas.price_overview.discount_percent,
-                                 publishers: datas.developers[0]
+                                 game_price: datas.price_overview ? datas.price_overview.final_formatted : "Free",
+                                 game_promotion: datas.price_overview ? datas.price_overview.discount_percent : 0,
+                                 publishers: datas.developers ? datas.developers[0] : "No one"
                              }))
                          }
                      }).catch((err: Error) => {
