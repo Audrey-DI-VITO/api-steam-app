@@ -67,7 +67,19 @@ app.get('/users/games_favorite', (req: Request, res: Response) => {
 })
 
 /***********************************************/
+// USERS + GAMES
+import {game_is_in_favorites} from "./src/services/games_users/game_is_in_favorites";
+import {game_is_in_wishlist} from "./src/services/games_users/game_is_in_wishlist";
 
+app.get('/users/:id_user/game/:id_game/favorites', (req: Request, res: Response) => {
+    game_is_in_favorites(req, res)
+})
+
+app.get('/users/:id_user/game/:id_game/wishlist', (req: Request, res: Response) => {
+    game_is_in_wishlist(req, res)
+})
+
+/***********************************************/
 app.listen(port, () => {
     console.log(ColorsFont.yellow, `TypeScript with Express on localhost:${port}/`);
 });
