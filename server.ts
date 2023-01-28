@@ -38,11 +38,11 @@ app.post('/games/add_in_wishlist',  (req: Request, res: Response) => {
     add_game_in_wishlist(req, res)
 })
 
-app.delete('/games/remove_from_favorite', (req: Request, res: Response) => {
+app.post('/games/remove_from_favorite', (req: Request, res: Response) => {
     remove_game_from_favorites(req, res)
 })
 
-app.delete('/games/remove_from_wishlist', (req: Request, res: Response) => {
+app.post('/games/remove_from_wishlist', (req: Request, res: Response) => {
     remove_game_from_wishlist(req, res)
 })
 
