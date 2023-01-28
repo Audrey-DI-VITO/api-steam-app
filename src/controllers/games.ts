@@ -73,7 +73,7 @@ export class GamesController extends NosqlDb {
     add_game_in_favorite = async (req: Request, res: Response) => {
         await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+req.body.game_id)
             .then(async () => {
-                let favorite = new Wishlist(req.body.game_id, req.body.user_id)
+                let favorite = new Favorites(req.body.game_id, req.body.user_id)
 
                 let favoriteRepo = this.appDataSource.getRepository(Favorites)
                 let already_exist_favorite = await favoriteRepo.find({
@@ -102,5 +102,22 @@ export class GamesController extends NosqlDb {
                     res.status(200).send("Successfully record in database")
                 }
         })
+    }
+
+    remove_game_from_favorites = async (req: Request, res: Response) => {
+        let favoriteRepo = this.appDataSource.getRepository(Favorites)
+        await favoriteRepo.delete({
+            game_id: req.body.game_id,
+            fk_user_id: req.body.user_id
+        })
+        res.status(200).send("Successfully deleted in database")
+    }
+    remove_game_from_wishlist = async (req: Request, res: Response) => {
+        let wishlistRepo = this.appDataSource.getRepository(Wishlist)
+        await wishlistRepo.delete({
+            game_id: req.body.game_id,
+            fk_user_id: req.body.user_id
+        })
+        res.status(200).send("Successfully deleted in database")
     }
 }

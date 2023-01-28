@@ -38,8 +38,13 @@ app.post('/games/add_in_wishlist',  (req: Request, res: Response) => {
     add_game_in_wishlist(req, res)
 })
 
-// TODO REMOVE GAME OF FAVORITE
-// TODO REMOVE GAME OF WISHLIST
+app.delete('/games/remove_from_favorite', (req: Request, res: Response) => {
+    remove_game_from_favorites(req, res)
+})
+
+app.delete('/games/remove_from_wishlist', (req: Request, res: Response) => {
+    remove_game_from_wishlist(req, res)
+})
 
 /***********************************************/
 // USERS
@@ -73,6 +78,8 @@ app.get('/users/games_favorite', (req: Request, res: Response) => {
 // USERS + GAMES
 import {game_is_in_favorites} from "./src/services/games_users/game_is_in_favorites";
 import {game_is_in_wishlist} from "./src/services/games_users/game_is_in_wishlist";
+import {remove_game_from_favorites} from "./src/services/games/remove_game_from_favorites";
+import {remove_game_from_wishlist} from "./src/services/games/remove_game_from_wishlist";
 
 app.get('/users/:id_user/game/:id_game/favorites', (req: Request, res: Response) => {
     game_is_in_favorites(req, res)
