@@ -37,76 +37,70 @@ export class GamesController extends NosqlDb {
     }
 
     add_game_in_wishlist = async (req: Request, res: Response) => {
-        await axios.get("https://steamcommunity.com/actions/SearchApps/"+req.body.game_name.toUpperCase())
-            .then(async (data: AxiosResponse) => {
-                await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+data.data[0].appid)
-                    .then(async () => {
-                        let wishlist = new Wishlist(data.data[0].appid, req.body.user_id)
+        await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+req.body.game_id)
+        .then(async () => {
+            let wishlist = new Wishlist(req.body.game_id, req.body.user_id)
 
-                        let wishlistRepo = this.appDataSource.getRepository(Wishlist)
-                        let already_exist_wishlist = await wishlistRepo.find({
-                            relations: ['fk_user_id'],
-                            where: {
-                                game_id: data.data[0].appid
-                            }
-                        })
-
-                        let cpt = 0;
-
-                        if(already_exist_wishlist.length > 0) {
-                            already_exist_wishlist.forEach(async (game: any) => {
-                                if(game.game_id !== data.data[0].appid && game.fk_user_id.id !== req.body.user_id) {
-                                    cpt += 1
-                                }
-                            })
-                            if(cpt === already_exist_wishlist.length) {
-                                await wishlistRepo.save(wishlist)
-                                res.status(200).send("Successfully record in database")
-                            } else {
-                                res.status(409).send("Already exist in database")
-                            }
-                        } else {
-                            await wishlistRepo.save(wishlist)
-                            res.status(200).send("Successfully record in database")
-                        }
-                    })
+            let wishlistRepo = this.appDataSource.getRepository(Wishlist)
+            let already_exist_wishlist = await wishlistRepo.find({
+                relations: ['fk_user_id'],
+                where: {
+                    game_id: req.body.game_id
+                }
             })
+
+            let cpt = 0;
+
+            if(already_exist_wishlist.length > 0) {
+                already_exist_wishlist.forEach(async (game: any) => {
+                    if(game.game_id !== req.body.game_id && game.fk_user_id.id !== req.body.user_id) {
+                        cpt += 1
+                    }
+                })
+                if(cpt === already_exist_wishlist.length) {
+                    await wishlistRepo.save(wishlist)
+                    res.status(200).send("Successfully record in database")
+                } else {
+                    res.status(409).send("Already exist in database")
+                }
+            } else {
+                await wishlistRepo.save(wishlist)
+                res.status(200).send("Successfully record in database")
+            }
+        })
     }
 
     add_game_in_favorite = async (req: Request, res: Response) => {
-        await axios.get("https://steamcommunity.com/actions/SearchApps/"+req.body.game_name.toUpperCase())
-            .then(async (data: AxiosResponse) => {
-                await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+data.data[0].appid)
-                    .then(async () => {
-                        let favorite = new Wishlist(data.data[0].appid, req.body.user_id)
+        await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids='+req.body.game_id)
+            .then(async () => {
+                let favorite = new Wishlist(req.body.game_id, req.body.user_id)
 
-                        let favoriteRepo = this.appDataSource.getRepository(Favorites)
-                        let already_exist_favorite = await favoriteRepo.find({
-                            relations: ['fk_user_id'],
-                            where: {
-                                game_id: data.data[0].appid
-                            }
-                        })
+                let favoriteRepo = this.appDataSource.getRepository(Favorites)
+                let already_exist_favorite = await favoriteRepo.find({
+                    relations: ['fk_user_id'],
+                    where: {
+                        game_id: req.body.game_id
+                    }
+                })
 
-                        let cpt = 0;
+                let cpt = 0;
 
-                        if(already_exist_favorite.length > 0) {
-                            already_exist_favorite.forEach(async (game: any) => {
-                                if(game.game_id !== data.data[0].appid && game.fk_user_id.id !== req.body.user_id) {
-                                    cpt += 1
-                                }
-                            })
-                            if(cpt === already_exist_favorite.length) {
-                                await favoriteRepo.save(favorite)
-                                res.status(200).send("Successfully record in database")
-                            } else {
-                                res.status(409).send("Already exist in database")
-                            }
-                        } else {
-                            await favoriteRepo.save(favorite)
-                            res.status(200).send("Successfully record in database")
+                if(already_exist_favorite.length > 0) {
+                    already_exist_favorite.forEach(async (game: any) => {
+                        if(game.game_id !== req.body.game_id && game.fk_user_id.id !== req.body.user_id) {
+                            cpt += 1
                         }
                     })
-            })
+                    if(cpt === already_exist_favorite.length) {
+                        await favoriteRepo.save(favorite)
+                        res.status(200).send("Successfully record in database")
+                    } else {
+                        res.status(409).send("Already exist in database")
+                    }
+                } else {
+                    await favoriteRepo.save(favorite)
+                    res.status(200).send("Successfully record in database")
+                }
+        })
     }
 }

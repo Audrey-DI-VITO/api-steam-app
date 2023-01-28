@@ -38,6 +38,9 @@ app.post('/games/add_in_wishlist',  (req: Request, res: Response) => {
     add_game_in_wishlist(req, res)
 })
 
+// TODO REMOVE GAME OF FAVORITE
+// TODO REMOVE GAME OF WISHLIST
+
 /***********************************************/
 // USERS
 import {login} from "./src/services/users/login";
