@@ -10,7 +10,7 @@ const steam_call = new SteamCall()
 app.use(bodyParser.json());
 
 //steam_call.get_top_100_games_fr()
-steam_call.get_top_100_games_en()
+//steam_call.get_top_100_games_en()
 
 /***********************************************/
 // GAMES
