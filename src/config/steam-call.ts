@@ -25,7 +25,7 @@ const axios = require('axios');
              await axios.get("https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/").then((data: AxiosResponse) => {
                  data.data.response.ranks.forEach(async (rank: any) => {
                      let appid = rank.appid
-                     await axios.get('https://store.steampowered.com/api/appdetails?appids=' + appid).then((data: AxiosResponse) => {
+                     await axios.get('https://store.steampowered.com/api/appdetails?l=french&appids=' + appid).then((data: AxiosResponse) => {
                          let datas = data.data[appid].data
 
                          if(datas === undefined) {
@@ -65,7 +65,7 @@ const axios = require('axios');
              await axios.get("https://api.steampowered.com/ISteamChartsService/GetMostPlayedGames/v1/").then((data: AxiosResponse) => {
                  data.data.response.ranks.forEach(async (rank: any) => {
                      let appid = rank.appid
-                     await axios.get('https://store.steampowered.com/api/appdetails?appids=' + appid).then((data: AxiosResponse) => {
+                     await axios.get('https://store.steampowered.com/api/appdetails?l=english&appids=' + appid).then((data: AxiosResponse) => {
                          let datas = data.data[appid].data
 
                          if(datas === undefined) {

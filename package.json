@@ -6,7 +6,7 @@
   "scripts": {
     "init": "npx tsc",
     "compileMac": "rm -rf ./dist && npm run init",
-    "compileWindaube": "rd /s /q dist && npm run init",
+    "compileWindaube": "rd /s /q dist || npm run init",
     "start-api-steam-app": "npm run compileMac && node dist/server.js",
     "start-api-steam-app-WS": "npm run compileWindaube && node dist/server.js"
   },
